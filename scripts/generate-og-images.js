@@ -18,9 +18,18 @@ async function generateOGImages() {
   const templatePath = path.join(__dirname, "../templates/og-template.html");
   const htmlTemplate = fs.readFileSync(templatePath, "utf8");
 
-  // Launch Puppeteer
+  // Launch Puppeteer with CI-friendly options
   const browser = await puppeteer.launch({
     headless: "new",
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-gpu',
+      '--no-first-run',
+      '--no-zygote',
+      '--single-process'
+    ]
   });
 
   const page = await browser.newPage();
@@ -77,8 +86,11 @@ async function generateOGImages() {
     }
   } catch (error) {
     console.error("❌ Error generating OG images:", error);
+    console.log("⚠️  Continuing build without OG images...");
   } finally {
-    await browser.close();
+    if (browser) {
+      await browser.close();
+    }
   }
 
   console.log("🎉 OG image generation complete!");
@@ -86,7 +98,11 @@ async function generateOGImages() {
 
 // Run if called directly
 if (require.main === module) {
-  generateOGImages().catch(console.error);
+  generateOGImages().catch((error) => {
+    console.error("Failed to generate OG images:", error);
+    // Don't exit with error code to allow build to continue
+    process.exit(0);
+  });
 }
 
 module.exports = { generateOGImages };
