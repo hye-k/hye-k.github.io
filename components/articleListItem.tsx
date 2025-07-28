@@ -1,17 +1,21 @@
 import { PostMetadata } from "@/lib/posts";
 import Link from "next/link";
+import Tag from "./tag";
 
-interface PostCardProps {
+interface ArticleListItemProps {
   post: PostMetadata;
 }
 
-export default function PostCard(props: PostCardProps) {
+export default function ArticleListItem(props: ArticleListItemProps) {
   const post = props.post;
 
   return (
-    <article key={post.id} className="group relative">
+    <article
+      key={post.id}
+      className="group relative bg-white/95 shadow-lg p-6 lg:p-8"
+    >
       <div className="mb-4 flex justify-between items-center">
-        <time className="text-sm text-gray-500 font-mono tracking-wide">
+        <time className="text-sm text-gray-500 tracking-wide">
           {new Date(post.date).toLocaleDateString("en-US", {
             year: "numeric",
             month: "long",
@@ -38,12 +42,7 @@ export default function PostCard(props: PostCardProps) {
 
       <div className="flex flex-wrap gap-3">
         {post.tags.map((tag) => (
-          <span
-            key={tag}
-            className="text-xs text-gray-500 tracking-wide px-2 py-1 bg-gray-100/50 rounded-sm hover:bg-accent/10 transition-colors duration-200"
-          >
-            {tag}
-          </span>
+          <Tag key={tag} tag={tag} variant="accent" />
         ))}
       </div>
     </article>

@@ -104,3 +104,27 @@ export function getRecentPosts(count: number = 3, skip: number = 1): PostMetadat
   // Skip the first 'skip' posts and return 'count' posts
   return sortedPosts.slice(skip, skip + count)
 }
+
+export function getPostsByTag(tag: string): PostMetadata[] {
+  const postIds = getAllPostIds()
+  const posts = postIds.map(id => getPostMetadata(id))
+  
+  // Filter posts that contain the specified tag
+  const filteredPosts = posts.filter(post => 
+    post.tags.some(postTag => postTag.toLowerCase() === tag.toLowerCase())
+  )
+  
+  // Sort by date in descending order
+  return filteredPosts.sort((a, b) => (a.date < b.date ? 1 : -1))
+}
+
+export function getAllTags(): string[] {
+  const postIds = getAllPostIds()
+  const posts = postIds.map(id => getPostMetadata(id))
+  
+  // Collect all tags from all posts
+  const allTags = posts.flatMap(post => post.tags)
+  
+  // Return unique tags
+  return [...new Set(allTags)]
+}

@@ -1,5 +1,6 @@
 import { Post } from "@/lib/posts";
 import Link from "next/link";
+import Tag from "./tag";
 
 interface ArticleProps {
   post: Post;
@@ -7,7 +8,7 @@ interface ArticleProps {
 
 export default function Article({ post }: ArticleProps) {
   return (
-    <article className="rounded-lg px-12 py-14 bg-white/50 shadow-xl">
+    <article className="rounded-lg px-6 py-10 lg:p-12 bg-white/95 shadow-xl">
       <div className="mb-6">
         <time className="text-sm text-gray-500 text-left tracking-wide mb-4 block">
           {new Date(post.date).toLocaleDateString("en-US", {
@@ -30,12 +31,7 @@ export default function Article({ post }: ArticleProps) {
 
       <div className="flex flex-wrap gap-3 mt-10 mb-6">
         {post.tags.map((tag) => (
-          <span
-            key={tag}
-            className="text-xs text-gray-500 tracking-wide px-2 py-1 bg-blue-100/30 rounded-xl"
-          >
-            {tag}
-          </span>
+          <Tag key={tag} tag={tag} variant="accent" />
         ))}
       </div>
     </article>
