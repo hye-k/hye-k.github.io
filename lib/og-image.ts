@@ -1,9 +1,11 @@
 export function generateOGImageUrl(postId?: string): string {
-  // Use generated static images
+  // Use generated static images with full URL for GitHub Pages
+  const baseUrl = 'https://hye-k.github.io';
+  
   if (postId) {
-    return `/og-images/${postId}.png`;
+    return `${baseUrl}/og-images/${postId}.png`;
   }
-  return '/og-images/default.png';
+  return `${baseUrl}/og-images/default.png`;
 }
 
 export function getPostOGImage(postId: string): string {
