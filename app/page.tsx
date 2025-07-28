@@ -25,9 +25,9 @@ export default async function Home() {
               applications, now power them with the insights they need.
               <br />
               <br />
-              Welcome to my corner of the internet where I share thoughts on
-              data engineering, software development, and the intersection of
-              technology and problem-solving.
+              Welcome to my blog where I share thoughts on data engineering,
+              software development, and the intersection of technology and
+              problem-solving.
             </p>
           </div>
           <div className="flex items-center space-x-8">

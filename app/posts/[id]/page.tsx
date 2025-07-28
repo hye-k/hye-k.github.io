@@ -15,7 +15,7 @@ export default async function Post({ params }: { params: { id: string } }) {
       <div className="px-8 py-8 lg:py-12">
         <Article post={post} />
 
-        <div className="mt-16 pt-8 border-t border-gray-200/50">
+        <div className="mt-8 pt-8">
           <Link
             href="/posts"
             className="text-accent hover:text-charcoal transition-colors duration-200 hover:underline decoration-1 underline-offset-4"

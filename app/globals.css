@@ -74,4 +74,51 @@
     text-decoration-style: wavy;
     text-underline-offset: 3px;
   }
+
+  /* Enhanced typography for fullscreen reading */
+  .prose-lg {
+    @apply text-lg leading-8;
+  }
+
+  .prose-lg p {
+    @apply mb-8 text-lg leading-8;
+  }
+
+  .prose-lg h1 {
+    @apply text-4xl font-bold mt-16 mb-8 leading-tight;
+  }
+
+  .prose-lg h2 {
+    @apply text-2xl font-medium mt-14 mb-8 leading-relaxed;
+  }
+
+  .prose-lg h3 {
+    @apply text-xl font-medium mt-12 mb-6 leading-relaxed;
+  }
+
+  .prose-lg blockquote {
+    @apply border-l-4 border-accent/30 pl-8 italic my-8 text-lg;
+  }
+
+  /* Subtle pulse animation for expand button */
+  @keyframes pulse-subtle {
+    0%, 100% {
+      opacity: 0.7;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+  }
+
+  .animate-pulse-subtle {
+    animation: pulse-subtle 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-subtle:hover {
+    animation: none;
+    opacity: 1;
+    transform: scale(1);
+  }
 }
