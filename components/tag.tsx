@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { tagToSlug } from "@/lib/slugs";
 
 interface TagProps {
   tag: string;
@@ -18,7 +19,7 @@ export default function Tag({ tag, variant = "default", clickable = true }: TagP
 
   if (clickable) {
     return (
-      <Link href={`/tags/${encodeURIComponent(tag)}`} className={className}>
+      <Link href={`/tags/${tagToSlug(tag)}`} className={className}>
         {tag}
       </Link>
     );

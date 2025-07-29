@@ -4,6 +4,7 @@ import matter from 'gray-matter'
 import { remark } from 'remark'
 import html from 'remark-html'
 import readingTime from 'reading-time'
+import { tagToSlug, slugToTag, createTagSlugMap } from './slugs'
 
 const postsDirectory = path.join(process.cwd(), 'posts')
 
@@ -127,4 +128,25 @@ export function getAllTags(): string[] {
   
   // Return unique tags
   return [...new Set(allTags)]
+}
+
+export function getAllTagSlugs(): string[] {
+  const tags = getAllTags()
+  return tags.map(tag => tagToSlug(tag))
+}
+
+export function getPostsByTagSlug(slug: string): PostMetadata[] {
+  const allTags = getAllTags()
+  const tagName = slugToTag(slug, allTags)
+  
+  if (!tagName) {
+    return []
+  }
+  
+  return getPostsByTag(tagName)
+}
+
+export function getTagSlugMap(): Record<string, string> {
+  const tags = getAllTags()
+  return createTagSlugMap(tags)
 }

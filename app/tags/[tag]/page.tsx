@@ -1,20 +1,17 @@
 import Link from "next/link";
-import { getPostsByTag, getAllTags } from "@/lib/posts";
+import { getPostsByTagSlug, getAllTagSlugs, getTagSlugMap } from "@/lib/posts";
 import ArticleListItem from "@/components/articleListItem";
 
 export async function generateStaticParams() {
-  const tags = getAllTags();
-  return tags.map((tag) => ({ tag: encodeURIComponent(tag) }));
+  const tagSlugs = getAllTagSlugs();
+  return tagSlugs.map((slug) => ({ tag: slug }));
 }
 
 export default function TagPage({ params }: { params: { tag: string } }) {
-  // Handle double-encoded parameters in static export
-  let decodedTag = decodeURIComponent(params.tag);
-  // If still contains encoded characters, decode again
-  if (decodedTag.includes('%')) {
-    decodedTag = decodeURIComponent(decodedTag);
-  }
-  const posts = getPostsByTag(decodedTag);
+  const slug = params.tag;
+  const posts = getPostsByTagSlug(slug);
+  const tagSlugMap = getTagSlugMap();
+  const tagName = tagSlugMap[slug] || slug;
 
   return (
     <div className="px-6 py-12">
@@ -28,7 +25,7 @@ export default function TagPage({ params }: { params: { tag: string } }) {
         </Link>
         
         <h1 className="text-4xl font-bold text-charcoal mb-4">
-          Posts tagged "{decodedTag}"
+          Posts tagged "{tagName}"
         </h1>
         <p className="text-gray-600 text-lg">
           {posts.length} {posts.length === 1 ? 'post' : 'posts'} found
