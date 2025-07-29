@@ -8,7 +8,12 @@ export async function generateStaticParams() {
 }
 
 export default function TagPage({ params }: { params: { tag: string } }) {
-  const decodedTag = decodeURIComponent(params.tag);
+  // Handle double-encoded parameters in static export
+  let decodedTag = decodeURIComponent(params.tag);
+  // If still contains encoded characters, decode again
+  if (decodedTag.includes('%')) {
+    decodedTag = decodeURIComponent(decodedTag);
+  }
   const posts = getPostsByTag(decodedTag);
 
   return (
