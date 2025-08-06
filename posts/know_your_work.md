@@ -1,6 +1,6 @@
 ---
 title: "일의 본질 알기"
-date: "2025-04-23"
+date: "2025-07-28"
 excerpt: "프로그래밍 하면 가장 먼저 떠올리는 건 으레 코드지만, 기자가 글 쓰는 사람이 아니듯 프로그래머는 코딩 하는 사람이 아니다."
 tags: ["Korean", "Thoughts on Programming", "Lesson Learned"]
 category: "Thoughts on Work"
