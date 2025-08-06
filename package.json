@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/third-parties": "^15.4.5",
     "gray-matter": "^4.0.3",
     "next": "15.3.5",
     "react": "^19.0.0",

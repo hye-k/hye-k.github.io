@@ -3,6 +3,7 @@ import "./globals.css";
 import { Navigation } from "@/components/navigation";
 import Footer from "@/components/footer";
 import { getDefaultOGImage } from "@/lib/og-image";
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 const defaultOGImage = getDefaultOGImage();
 
@@ -57,6 +58,7 @@ export default function RootLayout({
           <Footer />
         </div>
       </body>
+      <GoogleAnalytics gaId="G-SD4ZEV2P9M" />
     </html>
   );
 }
