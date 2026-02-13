@@ -6,7 +6,37 @@ import html from 'remark-html'
 import readingTime from 'reading-time'
 import { tagToSlug, slugToTag, createTagSlugMap } from './slugs'
 
-const postsDirectory = path.join(process.cwd(), 'posts')
+// Use content/published if it exists, otherwise fall back to posts
+const contentDir = path.join(process.cwd(), 'content', 'published')
+const postsDirectory = fs.existsSync(contentDir) ? contentDir : path.join(process.cwd(), 'posts')
+
+/**
+ * Convert Obsidian wikilinks to standard markdown links
+ * [[Link]] -> [Link](/posts/link)
+ * [[Link|Display Text]] -> [Display Text](/posts/link)
+ * ![[image.png]] -> ![image](/content/assets/images/image.png)
+ */
+function convertObsidianLinks(content: string): string {
+  // Convert image embeds: ![[image.png]] -> ![image](/content/assets/images/image.png)
+  content = content.replace(/!\[\[([^\]]+)\]\]/g, (match, imagePath) => {
+    const fileName = imagePath.split('/').pop()
+    return `![${fileName}](/content/assets/images/${fileName})`
+  })
+
+  // Convert wikilinks with custom text: [[link|Display Text]] -> [Display Text](/posts/link)
+  content = content.replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g, (match, link, displayText) => {
+    const slug = link.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+    return `[${displayText}](/posts/${slug})`
+  })
+
+  // Convert simple wikilinks: [[Link]] -> [Link](/posts/link)
+  content = content.replace(/\[\[([^\]]+)\]\]/g, (match, link) => {
+    const slug = link.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+    return `[${link}](/posts/${slug})`
+  })
+
+  return content
+}
 
 export interface PostMetadata {
   id: string
@@ -60,16 +90,19 @@ export async function getPostData(id: string): Promise<Post> {
   const filePath = path.join(postsDirectory, `${id}.md`)
   const fileContents = fs.readFileSync(filePath, 'utf8')
   const { data, content } = matter(fileContents)
-  
+
+  // Convert Obsidian links to standard markdown
+  const convertedContent = convertObsidianLinks(content)
+
   // Convert markdown to HTML
   const processedContent = await remark()
     .use(html)
-    .process(content)
+    .process(convertedContent)
   const contentHtml = processedContent.toString()
-  
+
   // Calculate reading time
   const stats = readingTime(content)
-  
+
   return {
     id,
     title: data.title,
