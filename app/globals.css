@@ -68,11 +68,9 @@
   }
 
   .prose-custom strong {
-    @apply font-medium;
-    text-decoration: underline;
-    text-decoration-color: #3b82f6;
-    text-decoration-style: wavy;
-    text-underline-offset: 3px;
+    @apply font-semibold;
+    display: inline;
+    box-shadow: inset 0 -8px 0 rgba(108, 174, 255, 0.4);
   }
 
   /* Enhanced typography for fullscreen reading */

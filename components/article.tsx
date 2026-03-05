@@ -13,7 +13,7 @@ export default function Article({ post }: ArticleProps) {
 
   return (
     <>
-      <article className="rounded-lg px-6 py-10 lg:p-12 bg-white/95 shadow-xl relative">
+      <article className="rounded-2xl px-6 py-10 lg:p-12 bg-white/95 shadow-xl relative">
         {/* Expand Button */}
         <button
           onClick={() => setIsExpanded(true)}

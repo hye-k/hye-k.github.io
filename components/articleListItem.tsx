@@ -12,7 +12,7 @@ export default function ArticleListItem(props: ArticleListItemProps) {
   return (
     <article
       key={post.id}
-      className="group relative bg-white/95 shadow-lg p-6 lg:p-8"
+      className="rounded-2xl group relative bg-white/95 shadow-lg p-6 lg:p-8"
     >
       <div className="mb-4 flex justify-between items-center">
         <time className="text-sm text-gray-500 tracking-wide">
