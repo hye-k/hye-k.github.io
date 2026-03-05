@@ -1,5 +1,4 @@
 ---
-title: Code Is Cheap, Cause Isn't
 slug: code-is-cheap-cause-isnt
 date: 2026-03-05
 excerpt: 누구나 소프트웨어를 만들 수 있는 세상이다. 그래서 어느 때보다 중요해진 질문이 있다. '무엇을, 왜 만드는가?'

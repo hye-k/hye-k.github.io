@@ -1,5 +1,4 @@
 ---
-title: What I Love About Programming
 slug: what-i-love-about-programming
 date: 2025-05-07
 excerpt: The Five Unusual Perks Only Programmers Understand
