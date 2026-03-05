@@ -20,7 +20,7 @@ export default async function Home() {
           </div>
           <div className="prose-custom">
             <p className="text-lg text-gray-600 mb-2">
-              Hey, there! I'm <strong>Hyewon</strong>. I'm a data engineer with a software
+              Hey, there! I'm <strong>Hyewon</strong>. I'm a <strong>data engineer</strong> with a software
               development foundation—formerly built data-intensive web
               applications, now power them with the insights they need.
               <br />
