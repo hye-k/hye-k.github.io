@@ -10,28 +10,35 @@ import { tagToSlug, slugToTag, createTagSlugMap } from './slugs'
 const contentDir = path.join(process.cwd(), 'content', 'published')
 const postsDirectory = fs.existsSync(contentDir) ? contentDir : path.join(process.cwd(), 'posts')
 
-/**
- * Convert Obsidian wikilinks to standard markdown links
- * [[Link]] -> [Link](/posts/link)
- * [[Link|Display Text]] -> [Display Text](/posts/link)
- * ![[image.png]] -> ![image](/content/assets/images/image.png)
- */
-function convertObsidianLinks(content: string): string {
+// Build a map of { filename (without .md) -> slug } from frontmatter
+function buildFilenameToSlugMap(): Record<string, string> {
+  const fileNames = fs.readdirSync(postsDirectory).filter(f => f.endsWith('.md'))
+  const map: Record<string, string> = {}
+  for (const fileName of fileNames) {
+    const filePath = path.join(postsDirectory, fileName)
+    const { data } = matter(fs.readFileSync(filePath, 'utf8'))
+    const name = fileName.replace(/\.md$/, '')
+    map[name] = data.slug || name
+  }
+  return map
+}
+
+function convertObsidianLinks(content: string, filenameToSlug: Record<string, string>): string {
   // Convert image embeds: ![[image.png]] -> ![image](/content/assets/images/image.png)
   content = content.replace(/!\[\[([^\]]+)\]\]/g, (match, imagePath) => {
     const fileName = imagePath.split('/').pop()
     return `![${fileName}](/content/assets/images/${fileName})`
   })
 
-  // Convert wikilinks with custom text: [[link|Display Text]] -> [Display Text](/posts/link)
+  // Convert wikilinks with custom text: [[link|Display Text]] -> [Display Text](/posts/slug)
   content = content.replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g, (match, link, displayText) => {
-    const slug = link.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+    const slug = filenameToSlug[link.trim()] ?? link.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
     return `[${displayText}](/posts/${slug})`
   })
 
-  // Convert simple wikilinks: [[Link]] -> [Link](/posts/link)
+  // Convert simple wikilinks: [[Link]] -> [Link](/posts/slug)
   content = content.replace(/\[\[([^\]]+)\]\]/g, (match, link) => {
-    const slug = link.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+    const slug = filenameToSlug[link.trim()] ?? link.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
     return `[${link}](/posts/${slug})`
   })
 
@@ -52,11 +59,26 @@ export interface Post extends PostMetadata {
   content: string
 }
 
+// Returns slugs (used as page IDs / URL segments)
 export function getAllPostIds(): string[] {
-  const fileNames = fs.readdirSync(postsDirectory)
-  return fileNames
-    .filter(fileName => fileName.endsWith('.md'))
-    .map(fileName => fileName.replace(/\.md$/, ''))
+  const fileNames = fs.readdirSync(postsDirectory).filter(f => f.endsWith('.md'))
+  return fileNames.map(fileName => {
+    const { data } = matter(fs.readFileSync(path.join(postsDirectory, fileName), 'utf8'))
+    return data.slug || fileName.replace(/\.md$/, '')
+  })
+}
+
+// Returns the file path for a given slug
+function getFilePathBySlug(slug: string): string {
+  const fileNames = fs.readdirSync(postsDirectory).filter(f => f.endsWith('.md'))
+  for (const fileName of fileNames) {
+    const filePath = path.join(postsDirectory, fileName)
+    const { data } = matter(fs.readFileSync(filePath, 'utf8'))
+    if ((data.slug || fileName.replace(/\.md$/, '')) === slug) {
+      return filePath
+    }
+  }
+  throw new Error(`No post found for slug: ${slug}`)
 }
 
 export function getAllPosts(): PostMetadata[] {
@@ -68,16 +90,16 @@ export function getAllPosts(): PostMetadata[] {
 }
 
 export function getPostMetadata(id: string): PostMetadata {
-  const filePath = path.join(postsDirectory, `${id}.md`)
+  const filePath = getFilePathBySlug(id)
   const fileContents = fs.readFileSync(filePath, 'utf8')
   const { data, content } = matter(fileContents)
-  
-  // Calculate reading time
+  const fileName = path.basename(filePath, '.md')
+
   const stats = readingTime(content)
-  
+
   return {
     id,
-    title: data.title,
+    title: data.title || fileName,
     date: data.date,
     excerpt: data.excerpt,
     tags: data.tags || [],
@@ -87,25 +109,24 @@ export function getPostMetadata(id: string): PostMetadata {
 }
 
 export async function getPostData(id: string): Promise<Post> {
-  const filePath = path.join(postsDirectory, `${id}.md`)
+  const filePath = getFilePathBySlug(id)
   const fileContents = fs.readFileSync(filePath, 'utf8')
   const { data, content } = matter(fileContents)
+  const fileName = path.basename(filePath, '.md')
 
-  // Convert Obsidian links to standard markdown
-  const convertedContent = convertObsidianLinks(content)
+  const filenameToSlug = buildFilenameToSlugMap()
+  const convertedContent = convertObsidianLinks(content, filenameToSlug)
 
-  // Convert markdown to HTML
   const processedContent = await remark()
     .use(html)
     .process(convertedContent)
   const contentHtml = processedContent.toString()
 
-  // Calculate reading time
   const stats = readingTime(content)
 
   return {
     id,
-    title: data.title,
+    title: data.title || fileName,
     date: data.date,
     excerpt: data.excerpt,
     tags: data.tags || [],
