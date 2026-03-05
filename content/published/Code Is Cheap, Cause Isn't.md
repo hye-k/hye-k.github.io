@@ -4,7 +4,6 @@ date: 2026-03-05
 excerpt: 누구나 소프트웨어를 만들 수 있는 세상이다. 그래서 어느 때보다 중요해진 질문이 있다. '무엇을, 왜 만드는가?'
 tags:
   - Thoughts
-  - LEAVE_HER_ALONE
   - Korean
 category: Thoughts on Work
 ---
@@ -12,4 +11,4 @@ AI의 발전으로 누구나 소프트웨어를 만들 수 있는 세상이다. 
   
 요즘 소셜 미디어에는 '딸깍' 바이브 코딩으로 얼마나 빨리, 얼마나 많은 앱을 만들었는지 자랑하는 글이 범람한다. 창작과 실천은 언제나 응원받아 마땅하지만, 그런 글을 볼 때면 궁금하다. '그래서 그 앱이 무슨 문제를 해결하나요? 누구를 어떻게 이롭게 하나요?'
   
-[[일의 본질 알기]]에서 썼듯이, 나는 프로그래밍이 기술로 문제를 해결하는 과정이라고 생각한다. '무엇을, 왜 만드는가?'에 대한 가장 뚜렷한 답은 우리를 진심으로 괴롭히는 문제에서 찾을 수 있다. 작년 [PyCon Korea](https://www.linkedin.com/company/pyconkorea/)에서 <RDD(Rage-Driven Development)>라는 제목으로 사회문제에 대한 분노를 동력 삼아 프로젝트를 개발한 경험을 발표했다. [요즘IT](https://www.linkedin.com/company/yozm/)에서 지면을 내어주셔서 제 이야기를 글([링크](https://lnkd.in/g6sicBa5))로도 나눌 수 있게 됐다. 해결하고 싶은 문제를 찾고 계신 분들께 닿았으면 한다.
+[[일의 본질 알기]]에서 썼듯이, 나는 프로그래밍이 기술로 문제를 해결하는 과정이라고 생각한다. '무엇을, 왜 만드는가?'에 대한 가장 뚜렷한 답은 우리를 진심으로 괴롭히는 문제에서 찾을 수 있다. 작년 [PyCon Korea](https://www.linkedin.com/company/pyconkorea/)에서 <RDD(Rage-Driven Development)>라는 제목으로 사회문제에 대한 분노를 동력 삼아 프로젝트를 개발한 경험을 발표했다. [요즘IT](https://www.linkedin.com/company/yozm/)에서 지면을 내어주셔서 내 이야기를 글([링크](https://lnkd.in/g6sicBa5))로도 나눌 수 있게 됐다. 해결하고 싶은 문제를 찾고 계신 분들께 닿았으면 한다.
