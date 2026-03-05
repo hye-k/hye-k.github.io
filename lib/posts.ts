@@ -2,7 +2,9 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { remark } from 'remark'
-import html from 'remark-html'
+import remarkRehype from 'remark-rehype'
+import rehypeExternalLinks from 'rehype-external-links'
+import rehypeStringify from 'rehype-stringify'
 import readingTime from 'reading-time'
 import { tagToSlug, slugToTag, createTagSlugMap } from './slugs'
 
@@ -118,7 +120,9 @@ export async function getPostData(id: string): Promise<Post> {
   const convertedContent = convertObsidianLinks(content, filenameToSlug)
 
   const processedContent = await remark()
-    .use(html)
+    .use(remarkRehype)
+    .use(rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] })
+    .use(rehypeStringify)
     .process(convertedContent)
   const contentHtml = processedContent.toString()
 
