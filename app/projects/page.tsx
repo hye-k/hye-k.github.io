@@ -30,10 +30,10 @@ const projects: Project[] = [
 
 export default function Projects() {
   return (
-    <div className="px-6 py-12">
+    <main className="px-6 py-12">
       <div className="mb-12">
-        <h1 className="text-4xl font-bold text-stone-800 mb-4">Projects</h1>
-        <p className="text-stone-600 text-lg">
+        <h1 className="text-title-sm md:text-title font-bold text-stone-800 mb-4">Projects</h1>
+        <p className="text-stone-600 text-body">
           A collection of things I&apos;ve built.
         </p>
       </div>
@@ -45,7 +45,7 @@ export default function Projects() {
             className="rounded-2xl group relative bg-white/95 shadow-lg p-6 lg:p-8"
           >
             
-            <h3 className="text-xl lg:text-2xl font-medium mb-4 leading-relaxed">
+            <h3 className="text-heading-md lg:text-heading-lg font-medium mb-4 leading-relaxed">
               <a
                 href={project.url}
                 target="_blank"
@@ -79,6 +79,6 @@ export default function Projects() {
           </article>
         ))}
       </div>
-    </div>
+    </main>
   );
 }

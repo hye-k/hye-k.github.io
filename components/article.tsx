@@ -73,31 +73,31 @@ export default function Article({ post, titleAs: TitleTag = "h3" }: ArticleProps
       {isExpanded && (
         <div className="fixed inset-0 bg-cream z-50 overflow-auto">
           <div className="max-w-4xl mx-auto lg:px-8 lg:py-16">
-            {/* Close Button */}
-            <button
-              onClick={() => setIsExpanded(false)}
-              className="fixed top-6 right-6 z-10 p-3 text-gray-400 hover:text-charcoal transition-colors duration-200 hover:bg-white/80 rounded-full backdrop-blur-sm"
-              aria-label="Exit fullscreen reading"
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-
             {/* Article Content */}
-            <article className="bg-white/95 shadow-2xl rounded-lg p-10 lg:p-12">
-              <div className="mb-12">
-                <time className="text-sm text-gray-500 tracking-wide mb-6 block">
+            <article className="bg-white/95 shadow-2xl rounded-2xl px-6 py-10 lg:p-12 relative">
+              {/* Close Button */}
+              <button
+                onClick={() => setIsExpanded(false)}
+                className="absolute top-4 right-4 p-2 text-gray-400 hover:text-accent transition-colors hover:bg-gray-200/50 rounded-full"
+                aria-label="Exit fullscreen reading"
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+
+              <div className="mb-6">
+                <time className="text-sm text-gray-500 text-left tracking-wide mb-4 block">
                   {new Date(post.date).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
@@ -105,23 +105,23 @@ export default function Article({ post, titleAs: TitleTag = "h3" }: ArticleProps
                   })}
                 </time>
 
-                <h1 className="text-title lg:text-title-lg font-medium mb-8 text-charcoal leading-tight">
+                <h1 className="text-title-sm md:text-title font-medium mb-5 text-charcoal leading-tight">
                   {post.title}
                 </h1>
 
-                <div className="flex flex-wrap gap-4 mb-8">
-                  {post.tags.map((tag) => (
-                    <Tag key={tag} tag={tag} variant="accent" />
-                  ))}
-                </div>
-
-                <div className="h-px bg-gradient-to-r from-gray-400 to-transparent"></div>
+                <div className="flex-1 h-px bg-gradient-to-r from-gray-400 to-transparent"></div>
               </div>
 
               <div
                 className="prose-custom prose-lg max-w-[720px] mx-auto"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
+
+              <div className="flex flex-wrap gap-3 mt-10 mb-6">
+                {post.tags.map((tag) => (
+                  <Tag key={tag} tag={tag} variant="accent" />
+                ))}
+              </div>
             </article>
           </div>
         </div>
