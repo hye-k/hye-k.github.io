@@ -6,9 +6,16 @@ import Tag from "./tag";
 
 interface ArticleProps {
   post: Post;
+  titleAs?: "h1" | "h2" | "h3";
 }
 
-export default function Article({ post }: ArticleProps) {
+const titleSizeClass = {
+  h1: "text-title-sm md:text-title",
+  h2: "text-heading-lg md:text-title-sm",
+  h3: "text-heading-md md:text-heading-lg",
+} as const;
+
+export default function Article({ post, titleAs: TitleTag = "h3" }: ArticleProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -18,7 +25,7 @@ export default function Article({ post }: ArticleProps) {
         <button
           onClick={() => setIsExpanded(true)}
           className="absolute top-4 right-4 p-2 text-gray-400 hover:text-accent transition-colors hover:bg-gray-200/50 rounded-full hover:animate-ping"
-          title="Expand for immersive reading"
+          aria-label="Expand for immersive reading"
         >
           <svg
             className="w-5 h-5"
@@ -44,14 +51,14 @@ export default function Article({ post }: ArticleProps) {
             })}
           </time>
 
-          <h3 className="text-3xl font-medium mb-5 text-charcoal">
+          <TitleTag className={`${titleSizeClass[TitleTag]} font-medium mb-5 text-charcoal`}>
             {post.title}
-          </h3>
+          </TitleTag>
           <div className="flex-1 h-px bg-gradient-to-r from-gray-400 to-transparent"></div>
         </div>
 
         <div
-          className="prose-custom"
+          className="prose-custom max-w-[720px] mx-auto"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
 
@@ -70,7 +77,7 @@ export default function Article({ post }: ArticleProps) {
             <button
               onClick={() => setIsExpanded(false)}
               className="fixed top-6 right-6 z-10 p-3 text-gray-400 hover:text-charcoal transition-colors duration-200 hover:bg-white/80 rounded-full backdrop-blur-sm"
-              title="Exit fullscreen reading"
+              aria-label="Exit fullscreen reading"
             >
               <svg
                 className="w-6 h-6"
@@ -98,7 +105,7 @@ export default function Article({ post }: ArticleProps) {
                   })}
                 </time>
 
-                <h1 className="text-4xl lg:text-5xl font-medium mb-8 text-charcoal leading-tight">
+                <h1 className="text-title lg:text-title-lg font-medium mb-8 text-charcoal leading-tight">
                   {post.title}
                 </h1>
 
@@ -112,7 +119,7 @@ export default function Article({ post }: ArticleProps) {
               </div>
 
               <div
-                className="prose-custom prose-lg max-w-none"
+                className="prose-custom prose-lg max-w-[720px] mx-auto"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
             </article>

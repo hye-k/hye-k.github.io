@@ -12,7 +12,7 @@ export default function Tag({ tag, variant = "default", clickable = true }: TagP
   
   const variants = {
     default: "text-gray-500 bg-gray-100/50 hover:bg-accent/10 hover:text-accent",
-    accent: "text-gray-500 bg-blue-100/30 hover:bg-blue-100/50 hover:text-blue-700"
+    accent: "text-gray-500 bg-accent/10 hover:bg-accent/20 hover:text-accent"
   };
 
   const className = `${baseStyles} ${variants[variant]} ${clickable ? 'cursor-pointer' : ''}`;

@@ -20,6 +20,16 @@ export default {
       },
     },
     extend: {
+      fontSize: {
+        caption:      ["var(--font-xs)", { lineHeight: "1.5" }],
+        body:         ["var(--font-sm)", { lineHeight: "1.625" }],
+        "heading-sm": ["var(--font-base)", { lineHeight: "1.5" }],
+        "heading-md": ["var(--font-md)",  { lineHeight: "1.5" }],
+        "heading-lg": ["var(--font-lg)",  { lineHeight: "1.4" }],
+        "title-sm":   ["var(--font-xl)",  { lineHeight: "1.3" }],
+        title:        ["var(--font-2xl)", { lineHeight: "1.25" }],
+        "title-lg":   ["var(--font-3xl)", { lineHeight: "1.2" }],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

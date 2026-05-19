@@ -51,7 +51,7 @@ export default async function Post({ params }: { params: { id: string } }) {
   return (
     <main className="min-h-screen">
       <div className="px-8 py-8 lg:py-12">
-        <Article post={post} />
+        <Article post={post} titleAs="h1" />
 
         <div className="mt-8 pt-8">
           <Link

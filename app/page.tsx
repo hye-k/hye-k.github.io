@@ -14,12 +14,12 @@ export default async function Home() {
       <div className="px-8 py-16 lg:py-24 flex flex-col gap-16 lg:gap-20">
         <div>
           <div className="relative">
-            <h1 className="text-4xl lg:text-5xl font-serif font-medium mb-4 leading-tight relative">
+            <h1 className="text-title lg:text-title-lg font-serif font-medium mb-4 leading-tight relative">
               Hyewon Kim
             </h1>
           </div>
           <div className="prose-custom">
-            <p className="text-lg text-gray-600 mb-2">
+            <p className="text-body text-gray-600 mb-2">
               Hey! I'm <strong>Hyewon</strong>. I'm a <strong>data engineer</strong> with a software
               development foundation—formerly built data-intensive web applications, now power them with the insights they need.
               <br />

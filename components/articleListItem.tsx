@@ -27,7 +27,7 @@ export default function ArticleListItem(props: ArticleListItemProps) {
         </span>
       </div>
 
-      <h3 className="text-xl lg:text-2xl font-medium mb-4 leading-relaxed">
+      <h3 className="text-heading-md lg:text-heading-lg font-medium mb-4 leading-relaxed">
         <Link
           href={`/posts/${post.id}`}
           className="text-charcoal hover:text-accent transition-colors duration-200 group-hover:underline decoration-1 underline-offset-4"

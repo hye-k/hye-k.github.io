@@ -6,10 +6,10 @@ export default function Posts() {
   const allPosts = getAllPosts();
 
   return (
-    <div className="px-6 py-12">
+    <main className="px-6 py-12">
       <div className="mb-12">
-        <h1 className="text-4xl font-bold text-stone-800 mb-4">All Posts</h1>
-        <p className="text-stone-600 text-lg">
+        <h1 className="text-title-sm md:text-title font-bold text-stone-800 mb-4">All Posts</h1>
+        <p className="text-stone-600 text-body">
           Explore my thoughts on data engineering, software development, and
           technology.
         </p>
@@ -20,6 +20,6 @@ export default function Posts() {
           <ArticleListItem key={post.id} post={post} />
         ))}
       </div>
-    </div>
+    </main>
   );
 }

@@ -1,5 +1,33 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200..900&display=swap");
 
+:root {
+  --color-accent: #093FC8;
+
+  /* 모바일 기본값 */
+  --font-xs: 0.75rem;    /* 12px */
+  --font-sm: 0.875rem;   /* 14px */
+  --font-base: 1rem;     /* 16px */
+  --font-md: 1.125rem;   /* 18px */
+  --font-lg: 1.25rem;    /* 20px */
+  --font-xl: 1.5rem;     /* 24px */
+  --font-2xl: 1.875rem;  /* 30px */
+  --font-3xl: 2.25rem;   /* 36px */
+}
+
+@media (min-width: 768px) {
+  :root {
+    /* 데스크톱: 한 단계씩 상향 */
+    --font-xs: 0.875rem;   /* 14px */
+    --font-sm: 1rem;       /* 16px */
+    --font-base: 1.125rem; /* 18px */
+    --font-md: 1.25rem;    /* 20px */
+    --font-lg: 1.5rem;     /* 24px */
+    --font-xl: 1.875rem;   /* 30px */
+    --font-2xl: 2.25rem;   /* 36px */
+    --font-3xl: 3rem;      /* 48px */
+  }
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -27,19 +55,29 @@
   }
 
   .prose-custom p {
-    @apply mb-6 text-base leading-relaxed;
+    font-size: var(--font-sm);
+    @apply mb-6 leading-relaxed;
   }
 
   .prose-custom h1 {
-    @apply text-2xl font-bold mt-12 mb-6 leading-relaxed;
+    font-size: var(--font-lg);
+    @apply font-bold mt-12 mb-6 leading-relaxed;
   }
 
   .prose-custom h2 {
-    @apply text-xl font-medium mt-10 mb-6 leading-relaxed;
+    font-size: var(--font-md);
+    border-left: 3px solid var(--color-accent);
+    padding-left: 14px;
+    text-wrap: balance;
+    @apply font-medium mt-10 mb-6 leading-relaxed;
   }
 
   .prose-custom h3 {
-    @apply text-lg font-serif font-medium mt-8 mb-4 leading-relaxed;
+    font-size: var(--font-base);
+    border-left: 2px solid var(--color-accent);
+    padding-left: 12px;
+    text-wrap: balance;
+    @apply font-serif font-medium mt-8 mb-4 leading-relaxed;
   }
 
   .prose-custom a {
@@ -47,15 +85,32 @@
   }
 
   .prose-custom code {
-    @apply bg-gray-100 px-1 py-0.5 rounded text-sm font-mono;
+    font-size: var(--font-xs);
+    @apply bg-gray-100 px-1 py-0.5 rounded font-mono;
   }
 
   .prose-custom pre {
-    @apply bg-gray-100 p-4 rounded-sm overflow-x-auto text-sm font-mono my-6;
+    font-size: var(--font-xs);
+    @apply bg-gray-100 p-4 rounded-sm overflow-x-auto font-mono my-6;
   }
 
   .prose-custom blockquote {
-    @apply border-l-2 border-gray-300 pl-6 italic my-6;
+    font-size: var(--font-md);
+    font-style: italic;
+    text-align: center;
+    color: #1a1a1a;
+    border: none;
+    padding: 24px 16px;
+    margin: 2rem 0;
+  }
+
+  .prose-custom blockquote::after {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 2px;
+    background: var(--color-accent);
+    margin: 16px auto 0;
   }
 
   .prose-custom ul,
@@ -75,27 +130,39 @@
 
   /* Enhanced typography for fullscreen reading */
   .prose-lg {
-    @apply text-lg leading-8;
+    font-size: var(--font-sm);
+    @apply leading-8;
   }
 
   .prose-lg p {
-    @apply mb-8 text-lg leading-8;
+    font-size: var(--font-sm);
+    @apply mb-8 leading-8;
   }
 
   .prose-lg h1 {
-    @apply text-4xl font-bold mt-16 mb-8 leading-tight;
+    font-size: var(--font-2xl);
+    @apply font-bold mt-16 mb-8 leading-tight;
   }
 
   .prose-lg h2 {
-    @apply text-2xl font-medium mt-14 mb-8 leading-relaxed;
+    font-size: var(--font-lg);
+    border-left: 3px solid var(--color-accent);
+    padding-left: 14px;
+    text-wrap: balance;
+    @apply font-medium mt-14 mb-8 leading-relaxed;
   }
 
   .prose-lg h3 {
-    @apply text-xl font-medium mt-12 mb-6 leading-relaxed;
+    font-size: var(--font-md);
+    border-left: 2px solid var(--color-accent);
+    padding-left: 12px;
+    text-wrap: balance;
+    @apply font-medium mt-12 mb-6 leading-relaxed;
   }
 
   .prose-lg blockquote {
-    @apply border-l-4 border-accent/30 pl-8 italic my-8 text-lg;
+    font-size: var(--font-sm);
+    @apply border-l-4 border-accent/30 pl-8 italic my-8;
   }
 
   /* Subtle pulse animation for expand button */
